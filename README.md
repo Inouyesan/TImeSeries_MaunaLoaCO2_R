@@ -21,9 +21,9 @@ models and used the model with the lowest AIC and AICc as my final fit. I checke
 This Figure 1 is a time series plot of the co2 emission data. The last 15 months were removed to test the time series model. From this plot, we can see an obvious seasonal component with the steady rise and then sudden dip in emissions occurring every 12 months. There is also a very steady upward trend occurring as well. Surprisingly, the variance looks to be constant throughout the years. From this, I move on to use Box-Cox transformations to see if there is any improvements that can be made (despite it looking as though no transformation is needed).
 
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure2.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure2.png?raw=true)
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure3-4.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure3-4.png?raw=true)
 
 Figure 2 shows the confidence interval for the Box-Cox transformation. The values -0.5 and 0.5 do not fall within this confidence interval, so a log transformation or square root tranformation does not seem likely. The actual value of lambda is: -2.484848
 
@@ -31,16 +31,16 @@ Figure 2 shows the confidence interval for the Box-Cox transformation. The value
 This value was used to calculate the Box-Cox transformed data that we see in Figure 4. Looking at the transformation, it does not seem like anything has changed. The data may have straightened out slightly from 1990-2000, but the difference is miniscule and not significant. To go even furthur and be certain that a transformation is not necessary, I plotted the ACF and PACF for the Box-Cox transformed and original data.
 
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure5-8.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure5-8.png?raw=true)
 
 
 Figures 5-8 are supposed to help us decide on whether or not to use the transformed data. As we can see, there is practially no change from the original to the transformed. One would think that we would decide to use the original data from here, but first, we will see how differencing in lags will affect the transformation. Based on the dataset and from looking at the plot, we can tell that there is seasonality in the data. We difference at lag 12 to remove this seasonality becuase the data is given in months. We will plot the ACF and PACF of the original and transformed data differenced at lag 12 to see if there is any change.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure9-12.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure9-12.png?raw=true)
 
 Once again, the purpose of Figures 9-12 are to help us determine if transformations are necessary. This time, there appears to be some change with respect to the ACF for both original and transformed data. After hitting 1 lag, the two plots change sign and value. The transformed data switched to negative values for ACF while the original stays positive. To look into this once more, we will difference again. Because there seems to be a significant lag at 1 for the PACF for both plots, we will difference at lag 1.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure13-16.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure13-16.png?raw=true)
 
 Figures 13-16 show the plots after differencing by lag 1 and removing the trend from the data. It is here where we conclude that we will not need to use a transformation on this data. The ACF and PACF plots area essentially the same. There are some small differences, but they are so miniscule that they are insignificant. We will move on to the next part of the project
 
@@ -53,9 +53,9 @@ Before we start to move on to the model portion of the project, we must decide o
 
 We can see that at the last difference of lag 1, the variance starts to increase. Therefore, we will ignore that last difference at lag 1. The data that we will be using to identify our model is the data that is differenced by lag 12 and then by lag 1.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure17.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure18.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure19.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure17.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure18.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure19.png?raw=true)
 
 Looking at the time series plot that is differenced, it seems to be more random and stationary. The ACF and PACF plots of Figures 18 and 19 can help us interpret our model. We can see seasonal lags at factors of 12. The ACF peaks at lag 1 and PACF trails off, so we can consider P=0 and Q=1. And since both ACF and PACF are large at lag 12, we can think of P=1, Q=1, or P=Q=1. The ACF and PACF both tail off in seasonal lags, so we can consider P=2 or P=1 and Q=1. Looking within the season to choose the nonseasonal p and q, we see that PACF is mostly cut off after lag 2. Therefore, we will choose p=2 and q=0.
 
@@ -68,39 +68,39 @@ SARIMA(2,1,0) X (2,1,1)12
  
 Now, we will move on to fitting the models and diagnostic checking.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit1.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit2.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit3.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit4.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit1.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit2.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit3.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelfit4.png?raw=true)
 
 After using the arima function on the models, we can see that fit1 has the lowest AIC value. Before continuing, however, we must check to make sure the models we just created are both causal and invertable. We do this two ways - by making sure the roots are outside of the unit circle and that the spec.arma function does not return a warning.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure20-21.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure22-23.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure24-25.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure20-21.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure22-23.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure24-25.png?raw=true)
 
 We can see in Figures 20-25 that the roots of the polynomials for the AR and MA parts of the model are all outside of the unit circle. It also turns out that the spec.arma function did not return any errors, thus solidifying the fact that theses models are causal and invertible.
 
 Now that we know our models are causal and invertible, we can look for the models with the lowest AICc values and use that with the knowledge of the model with the lowest AIC value to choose our final model.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelchoose.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/modelchoose.png?raw=true)
 
 When P=0 and Q=1, we get the lowest AICc value. This corresponds with fit1, which also has the lowest AIC value. Fit1 also happens to be tied for having the fewest parameters, which goes along with the theory of parsimony (choosing the model with the fewest parameters). These findings lead us to choose fit1 as our final model.
 
 Moving forward, we just want to double check to make sure that our final model is causal and invertible.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/finalmodelcheck.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/finalmodelcheck.png?raw=true)
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure26-27.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure28.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure26-27.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure28.png?raw=true)
 
 We see from Figures 26-28 that our model is ready to go and it is now time for diagnostic testing.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure29.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure30.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure31.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure32.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure33.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure29.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure30.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure31.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure32.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure33.png?raw=true)
 
 In Figures 29-33, we are analyzing the residuals of our model. Our time series data looks random and stationary, which is what we want it to look like. Our ACF and PACF have essentially no significant lags after 0, with the exception of lag 3. However, that lag is close enough to the edge of the confidence interval to where we can consider it insignificant. The Histogram is slightly concerning, as it has a small skew to it. This could possibl be from outliers and have an effect on the symmetry of the data. The Q-Q Plot also seems to be a little bit off around the tails of the plot. Taking this into consideration, we will consider this model satisfactory and proceed forward with the understanding that there may possibly be errors when it comes to normality and symmetry.
 
@@ -108,8 +108,8 @@ In Figures 29-33, we are analyzing the residuals of our model. Our time series d
 Now we will move on to the tests for diagnostic checking.
 
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/diagnosticcheck1.png)
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/diagnosticcheck2.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/diagnosticcheck1.png?raw=true)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/diagnosticcheck2.png?raw=true)
 
 Here, we run the Box-Pierce test, Box-Ljung test, Mcleod-Li test, and Shapiro-Wilk test. The p-values for all but one test ended up being greater than 0.05, thus failing to reject the null hypotheses. The lag for these tests was found by calculating sqrt(n) = sqrt(338) = 19.697 = 20. The number of fitted parameters is 2 because p=2 and q=0.
 
@@ -120,11 +120,11 @@ Our best model is:  SARIMA(2,1,0) X (0,1,1)12
 
 Now we move on to forecasting. I am attempting to forecast the first 15 months after August 2016 using the model above. Using the predict function, I am able to calculate the predicted co2 levels and the upper and lower bounds associated with them. Using the standard error from the predict function, I am able to create a confidence interval for the predicted points.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure34.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure34.png?raw=true)
 
 Here, in Figure 34, we have our predicted co2 levels for the first 15 months after August 2016 and the confidence interval for them. We thankfully see that all of our points fall withing the confidence interval. Adding on the actual co2 levels from the data we took out from the beginning, we can see how well our model held up.
 
-![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure35.png)
+![](https://github.com/Inouyesan/TImeSeries_MaunaLoaCO2_R/blob/master/images/figure35.png?raw=true)
 
 Now that our actual data is plotted along with our predicted values, we can see that our model held up pretty well. At the end of 2016, the actual values of co2 emissions approaches the upper bound of the confidence interval, but then moves back towards the middle soon into 2017. We also see that our predicted values trail right underneith the actual values of co2 over the 15 months.
 
